@@ -5,28 +5,34 @@ import Context from "../Context";
 
 const Header = () => {
 
+    /* To track if delete button is clicked */
     const [activeDeleteNoteIcon, setActiveDeleteNoteIcon] = useState(false)
-    const {openedId, textRef, addNewNote, deleteNote, inputTextActive, setInputTextActive} = useContext(Context)
+
+    /* Data from context */
+    const {textRef, addNewNote, deleteNote, inputTextActive, setInputTextActive} = useContext(Context)
+
+    /* Handling delete note button */
+    const handleDeleteNote = () => {
+        {
+            setActiveDeleteNoteIcon(true)
+            let accept = window.confirm("Are you sure you want to delete note?")
+            if (accept) deleteNote()
+            setActiveDeleteNoteIcon(false)
+        }
+    }
 
     return (
         <div className='app-header'>
             <div className='button-container'>
                 <button
                     className='button-element'
-                    onClick={() => {
-                        addNewNote()
-                    }}
+                    onClick={() => addNewNote()}
                 >
                     <BiPlus/>
                 </button>
                 <button
                     className='button-element'
-                    onClick={() => {
-                        setActiveDeleteNoteIcon(true)
-                        let accept = window.confirm("Are you sure you want to delete note?")
-                        if (accept) deleteNote(openedId)
-                        setActiveDeleteNoteIcon(false)
-                    }}
+                    onClick={handleDeleteNote}
                     style={activeDeleteNoteIcon ? {backgroundColor: '#ececec'} : {}}
 
                 >

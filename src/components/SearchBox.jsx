@@ -4,7 +4,10 @@ import Context from "../Context";
 
 const SearchBox = () => {
 
+    /* Ref to focus on search input */
     const inputRef = useRef(null)
+
+    /* Data from context */
     const {setSearchText} = useContext(Context)
 
     return (

@@ -1,14 +1,12 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext} from 'react'
 import Context from "../Context";
 
 const Sidebar = () => {
 
-    useEffect(() => {
-
-    }, [])
-
+    /* Data from context */
     const {data, openedId, setOpenedId, setText, searchText} = useContext(Context)
 
+    /* Handling click on sidebar item */
     const sidebarItemClicked = (id, values) => {
         setOpenedId(id)
         setText(values.cOwKddKmjbW7ZdKgPHFmoK)
@@ -20,10 +18,13 @@ const Sidebar = () => {
         <div className='sidebar'>
             <div className='sidebar-content'>
                 {data?.filter((note) =>
+                    /* Filtered data by search input */
                     note?.values?.cOwKddKmjbW7ZdKgPHFmoK.toLowerCase().includes(searchText)
                 )?.map(({
                                id, values, updated_at
                            }) => {
+
+                    /* Date formatting */
                     let date = new Date(updated_at)
                     let Y = date.getFullYear().toString()
                     let M = (date.getMonth() + 1).toString()

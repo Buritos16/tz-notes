@@ -4,52 +4,96 @@ const Context = createContext()
 
 export function ContextProvider({children}) {
 
+    const [stateChanged, setStateChanged] = useState(false)
     const textRef = useRef(null)
     const [data, setData] = useState([]);
+    const [openedId, setOpenedId] = useState(1)
+    const [text, setText] = useState('')
+    const [inputTextActive, setInputTextActive] = useState(false)
+
 
     useEffect(() => {
-
         // fetch data
         const dataFetch = async () => {
             const data = await (
                 await fetch(
-                    "https://QuintaDB.com/apps/b-dSo_xmnjWQNdVe9vW6DO/dtypes/entity/cdWRjCiMHle4kMW53dPqDi.json?rest_api_key=ddNmoZW5DnWOqTEuddVSog&fetch_all=true"
+                    "https://QuintaDB.com/apps/aEyHGLxJTgt7NdV3NcRSoi/dtypes/entity/cVW45mW41hWOaWt8kComkW.json?rest_api_key=aLWQJcRSnjW6dcIvRdT8ov&fetch_all=true"
                 )
             ).json();
 
             // set state when the data received
-            setData(data.records);
-            console.log(data.records)
+            setData(data?.records);
+            setOpenedId(data?.records?.[0]?.id)
+            setText(data?.records?.[0]?.values?.cOwKddKmjbW7ZdKgPHFmoK)
+            if (!data?.records?.[0]?.values?.cOwKddKmjbW7ZdKgPHFmoK) setText('')
         };
 
         dataFetch();
-    }, []);
-
-    const [openedId, setOpenedId] = useState(1)
-    const [text, setText] = useState('')
+        setStateChanged(false)
+    }, [stateChanged]);
 
 
-    const addItem = () => {
-        setData([
-            {
-                id: 1,
+
+
+    const addNewNote = async () => {
+        const requestOptions = {
+            method: 'POST',
+            body: JSON.stringify({
+                rest_api_key: "aLWQJcRSnjW6dcIvRdT8ov",
                 values: {
-                    dcUSo7WRfdRA_dOfmlC8kL: '',
-                    dcVW1kbMHdLjXZWO7cU8o4: '',
+                    entity_id: "cVW45mW41hWOaWt8kComkW",
+                    coWQmXimnpE5DFWR4bWReI: `${Date.now()}`,
+                    cOwKddKmjbW7ZdKgPHFmoK: 'New note'
                 }
-            }
-            , ...data])
-        setOpenedId(1)
-        setText('')
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        };
+
+        await fetch('https://QuintaDB.com/apps/aEyHGLxJTgt7NdV3NcRSoi/dtypes.json', requestOptions)
+        setStateChanged(true)
     }
 
-    const setNewText = (e) => {
-        setText(e.target.value)
+    const deleteNote = async (id) => {
+        const requestOptions = {
+            method: 'DELETE',
+            body: JSON.stringify({
+                rest_api_key: "aLWQJcRSnjW6dcIvRdT8ov",
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        };
 
+        await fetch(`https://QuintaDB.com/apps/aEyHGLxJTgt7NdV3NcRSoi/dtypes/${id}.json`, requestOptions)
+
+        setStateChanged(true)
+    }
+
+    const updateNote = async () => {
+        const requestOptions = {
+            method: 'PUT',
+            body: JSON.stringify({
+                rest_api_key: "aLWQJcRSnjW6dcIvRdT8ov",
+                values: {
+                    coWQmXimnpE5DFWR4bWReI: `${Date.now()}`,
+                    cOwKddKmjbW7ZdKgPHFmoK: text
+                }
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        };
+
+        await fetch(`https://QuintaDB.com/apps/aEyHGLxJTgt7NdV3NcRSoi/dtypes/${openedId}.json`, requestOptions)
+
+        setStateChanged(true)
     }
 
     return (
-        <Context.Provider value={{openedId, setOpenedId, text, setText, setNewText, data, textRef, addItem}}>
+        <Context.Provider
+            value={{openedId, setOpenedId, text, setText, data, textRef, addNewNote, deleteNote, updateNote, inputTextActive, setInputTextActive}}>
             {children}
         </Context.Provider>
     )

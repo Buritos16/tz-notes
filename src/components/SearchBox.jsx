@@ -1,9 +1,11 @@
-import React, {useRef} from 'react'
+import React, {useContext, useRef} from 'react'
 import {BiSearch} from 'react-icons/bi'
+import Context from "../Context";
 
 const SearchBox = () => {
 
     const inputRef = useRef(null)
+    const {setSearchText} = useContext(Context)
 
     return (
         <div
@@ -17,6 +19,7 @@ const SearchBox = () => {
                 ref={inputRef}
                 className='search-input'
                 placeholder='Search'
+                onChange={(e) => setSearchText(e.target.value)}
             />
         </div>
     )

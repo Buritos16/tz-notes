@@ -7,7 +7,7 @@ const Sidebar = () => {
 
     }, [])
 
-    const {data, openedId, setOpenedId, setText} = useContext(Context)
+    const {data, openedId, setOpenedId, setText, searchText} = useContext(Context)
 
     const sidebarItemClicked = (id, values) => {
         setOpenedId(id)
@@ -19,7 +19,9 @@ const Sidebar = () => {
     return (
         <div className='sidebar'>
             <div className='sidebar-content'>
-                {data?.map(({
+                {data?.filter((note) =>
+                    note?.values?.cOwKddKmjbW7ZdKgPHFmoK.toLowerCase().includes(searchText)
+                )?.map(({
                                id, values, updated_at
                            }) => {
                     let date = new Date(updated_at)

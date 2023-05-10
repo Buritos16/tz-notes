@@ -10,7 +10,7 @@ export function ContextProvider({children}) {
     const [openedId, setOpenedId] = useState(1)
     const [text, setText] = useState('')
     const [inputTextActive, setInputTextActive] = useState(false)
-
+    const [searchText, setSearchText] = useState('')
 
     useEffect(() => {
         // fetch data
@@ -93,7 +93,10 @@ export function ContextProvider({children}) {
 
     return (
         <Context.Provider
-            value={{openedId, setOpenedId, text, setText, data, textRef, addNewNote, deleteNote, updateNote, inputTextActive, setInputTextActive}}>
+            value={{
+                openedId, setOpenedId, text, setText, data, textRef,
+                addNewNote, deleteNote, updateNote, inputTextActive,
+                setInputTextActive, searchText, setSearchText}}>
             {children}
         </Context.Provider>
     )

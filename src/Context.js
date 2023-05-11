@@ -14,7 +14,7 @@ export function ContextProvider({children}) {
     const [data, setData] = useState([]);
 
     /* Id of opened note at the moment */
-    const [openedId, setOpenedId] = useState(1)
+    const [openedId, setOpenedId] = useState('')
 
     /* State for text input (textarea) */
     const [text, setText] = useState('')
@@ -39,10 +39,6 @@ export function ContextProvider({children}) {
             /* Set states when the data received */
             setData(data?.records);
             setOpenedId(data?.records?.[0]?.id)
-            setText(data?.records?.[0]?.values?.cOwKddKmjbW7ZdKgPHFmoK)
-
-            /* If data is empty setting text input (textarea) empty also */
-            if (!data?.records?.[0]?.values?.cOwKddKmjbW7ZdKgPHFmoK) setText('')
         };
 
         dataFetch();

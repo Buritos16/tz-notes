@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect} from 'react'
 import Context from "../Context";
 import {useDebouncedCallback} from "use-debounce";
 
@@ -24,6 +24,11 @@ const ListItem = () => {
         m = `0${date.getMinutes()}`
     }
     const dateFull = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} at ${h}:${m}`
+
+    useEffect(() => {
+        setText(data?.find(x => x?.id === openedId)?.values?.cOwKddKmjbW7ZdKgPHFmoK)
+        if (!openedId) setText('')
+    }, [openedId])
 
     return (
         <div className='list-item'>

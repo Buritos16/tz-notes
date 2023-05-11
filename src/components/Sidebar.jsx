@@ -4,15 +4,7 @@ import Context from "../Context";
 const Sidebar = () => {
 
     /* Data from context */
-    const {data, openedId, setOpenedId, setText, searchText} = useContext(Context)
-
-    /* Handling click on sidebar item */
-    const sidebarItemClicked = (id, values) => {
-        setOpenedId(id)
-        setText(values.cOwKddKmjbW7ZdKgPHFmoK)
-        if (!values.cOwKddKmjbW7ZdKgPHFmoK) setText('')
-    }
-
+    const {data, openedId, setOpenedId, searchText} = useContext(Context)
 
     return (
         <div className='sidebar'>
@@ -50,7 +42,7 @@ const Sidebar = () => {
                             className='sidebar-item'
                             key={id}
                             style={id === openedId ? {backgroundColor: '#eed586'} : {}}
-                            onClick={() => sidebarItemClicked(id, values)}
+                            onClick={() => setOpenedId(id)}
                         >
                             <div className='sidebar-data'>
                                 <div

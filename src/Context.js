@@ -38,7 +38,6 @@ export function ContextProvider({children}) {
 
             /* Set states when the data received */
             setData(data?.records);
-            setOpenedId(data?.records?.[0]?.id)
         };
 
         dataFetch();
@@ -86,7 +85,7 @@ export function ContextProvider({children}) {
         setStateChanged(true)
     }
 
-    const updateNote = async () => {
+    const updateNote = async (id) => {
         const requestOptions = {
             method: 'PUT',
             body: JSON.stringify({
@@ -101,7 +100,7 @@ export function ContextProvider({children}) {
             },
         };
 
-        await fetch(`https://QuintaDB.com/apps/aEyHGLxJTgt7NdV3NcRSoi/dtypes/${openedId}.json`, requestOptions)
+        await fetch(`https://QuintaDB.com/apps/aEyHGLxJTgt7NdV3NcRSoi/dtypes/${id}.json`, requestOptions)
 
         setStateChanged(true)
     }

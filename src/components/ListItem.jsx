@@ -8,8 +8,9 @@ const ListItem = () => {
     const {text, setText, textRef, updateNote, setInputTextActive, data, openedId} = useContext(Context)
 
     /* Debounce API call to server */
-    const debounced = useDebouncedCallback(() => {
-        updateNote()
+    const debounced = useDebouncedCallback((stopDebounce = false) => {
+        if (stopDebounce) return
+        updateNote(openedId)
     }, 700)
 
     /* Date formatting */
@@ -33,9 +34,10 @@ const ListItem = () => {
     return (
         <div className='list-item'>
             <div className='list-item-date'>
-                {dateFull}
+                {openedId ? dateFull : ''}
             </div>
             <textarea
+                disabled={!openedId}
                 ref={textRef}
                 className='list-item-text'
                 value={text}
@@ -46,6 +48,8 @@ const ListItem = () => {
                 onClick={() => setInputTextActive(true)}
                 onBlur={() => {
                     setInputTextActive(false)
+                    updateNote(openedId)
+                    debounced(true)
                 }}
             />
         </div>

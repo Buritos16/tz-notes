@@ -11,7 +11,7 @@ const Sidebar = () => {
             <div className='sidebar-content'>
                 {data?.filter((note) =>
                     /* Filtered data by search input */
-                    note?.values?.cOwKddKmjbW7ZdKgPHFmoK?.toLowerCase()?.includes(searchText)
+                    note?.values?.cOwKddKmjbW7ZdKgPHFmoK?.toLowerCase()?.includes(searchText.toLowerCase())
                 )?.map(({
                                id, values, updated_at
                            }) => {

@@ -9,7 +9,7 @@ const Header = () => {
     const [activeDeleteNoteIcon, setActiveDeleteNoteIcon] = useState(false)
 
     /* Data from context */
-    const {textRef, addNewNote, deleteNote, inputTextActive, setInputTextActive} = useContext(Context)
+    const {textRef, openedId, addNewNote, deleteNote, inputTextActive, setInputTextActive} = useContext(Context)
 
     /* Handling delete note button */
     const handleDeleteNote = () => {
@@ -44,6 +44,7 @@ const Header = () => {
                         textRef.current.focus()
                         setInputTextActive(true)
                     }}
+                    disabled={!openedId}
                     style={inputTextActive ? {backgroundColor: '#ececec'} : {}}
                 >
                     <BiEdit/>

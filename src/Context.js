@@ -82,6 +82,7 @@ export function ContextProvider({children}) {
 
         await fetch(`https://QuintaDB.com/apps/aEyHGLxJTgt7NdV3NcRSoi/dtypes/${openedId}.json`, requestOptions)
 
+        setOpenedId('')
         setStateChanged(true)
     }
 

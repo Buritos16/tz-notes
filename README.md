@@ -1,4 +1,4 @@
-# Clone of apple notes with autosaving in DB
+# Clone of apple notes with autosaving in QuintaDB
 
 ## Screenshots
 ![Screenshot](src/screenshot/Notes.jpg)
